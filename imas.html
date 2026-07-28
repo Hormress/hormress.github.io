@@ -5,25 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Hentaigana:wght@200..900&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200..900&display=swap');
 
             /* ========================================================================================================== *\
                卡片实现灵感来自：https://uiverse.io/vamsidevendrakumar/soft-shrimp-94 by Vamsi Devendra Kumar, MIT License
             \* ========================================================================================================== */
 
             :root {
+                --hdis: 25%;
+                --vdis: 25%;
+                --pt: max(3vw, 5vh, 2rem);
                 font-size: 16px;
             }
 
+            html {
+                width: 100dvw;
+                height: 100dvh;
+                position: fixed;
+            }
+
             body {
+                width: 100%;
+                height: 100%;
                 margin: 0;
                 padding: 0;
+                background-image: repeating-linear-gradient(60deg, rgb(145, 185, 254, 0.2), rgb(145, 185, 254, 0.2) 2rem, transparent 2rem, transparent 4rem);
             }
 
             div.card {
-                width: 18rem;
-                height: 10.8rem;
+                width: calc(9 * var(--pt));
+                height: calc(5.4 * var(--pt));
                 perspective: 60rem;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                filter: drop-shadow(0 0 0.5rem rgb(20, 20, 20, 0.3));
             }
 
             div.card-inside {
@@ -41,13 +57,15 @@
             div.card-inside div.front,
             div.card-inside div.back,
             div.card-inside::before,
-            div.card-inside::after {
+            div.card-inside::after,
+            div.card-inside-static {
                 content: "";
                 display: block;
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 backface-visibility: hidden;
+                border-radius: calc(0.25 * var(--pt));
             }
 
             div.card-inside div.back,
@@ -55,20 +73,131 @@
                 transform: rotateY(180deg);
             }
 
+            div.card.v1 {
+                left: var(--hdis);
+                top: var(--vdis);
+            }
+
             div.card.v1 div.card-inside::before {
-                background-image: url("/imas/Card_v1a.svg");
+                background-image: url("imas/Card_v1a.svg");
             }
 
             div.card.v1 div.card-inside::after {
-                background-image: url("/imas/Card_v1b.svg");
+                background-image: url("imas/Card_v1b.svg");
+            }
+
+            div.card.v2 {
+                left: 50%;
+                top: 50%;
             }
 
             div.card.v2 div.card-inside::before {
-                background-image: url("/imas/Card_v2a.svg");
+                background-image: url("imas/Card_v2a.svg");
             }
 
             div.card.v2 div.card-inside::after {
-                background-image: url("/imas/Card_v2b.svg");
+                background-image: url("imas/Card_v2b.svg");
+            }
+
+            div.card.v3 {
+                left: calc(100% - var(--hdis));
+                top: calc(100% - var(--vdis));
+            }
+
+            div.card.v3 div.card-inside-static {
+                background-color: rgb(254, 254, 254);
+                font-size: calc(var(--pt) * 2 / 3);
+                line-height: 1.5;
+                overflow: hidden;
+            }
+
+            div.title {
+                height: var(--pt);
+                color: rgb(254, 254, 254);
+                background-color: rgb(234, 74, 74);
+                background-image: repeating-linear-gradient(60deg, rgb(224, 44, 44), rgb(224, 44, 44) 0.5rem, transparent 0.5rem, transparent 1rem);
+                font-weight: 700;
+                font-family: "Noto Serif Hentaigana", "Noto Serif JP", serif;
+            }
+
+            div.title span.logo {
+                display: inline-block;
+                margin-inline: 0.25em;
+                width: 1.5em;
+                height: 100%;
+                vertical-align: bottom;
+                background-image: url("imas/Logo_without_tears.svg"), url("imas/Logo_tears.svg");
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            div.content {
+                padding: 0.33em 1.33em;
+                font-size: 0.6em;
+                font-family: "Noto Sans SC", sans-serif;
+            }
+
+            div.content p {
+                margin-block: 0.66em;
+            }
+
+            @media (max-aspect-ratio: 9 / 8) {
+                :root {
+                    --hdis: 30%;
+                    --vdis: 25%;
+                }
+
+                div.card {
+                    transform: translate(-50%, -50%) rotate(-5deg);
+                }
+            }
+
+            @media (max-aspect-ratio: 9 / 11) {
+                :root {
+                    --hdis: 35%;
+                    --vdis: 25%;
+                }
+            }
+
+            @media (max-aspect-ratio: 9 / 13) {
+                :root {
+                    --hdis: 50%;
+                    --vdis: 25%;
+                }
+            }
+
+            @media (max-width: 600px) {
+                :root {
+                    --hdis: 35%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                :root {
+                    --hdis: 40%;
+                }
+            }
+
+            @media (max-width: 400px) {
+                :root {
+                    --hdis: 50%;
+                }
+            }
+
+            @media (max-width: 480px) and (max-height: 480px) {
+                :root {
+                    --hdis: 50%;
+                }
+
+                div.card {
+                    transform: translate(-50%, -50%) rotate(-7.5deg);
+                }
+            }
+
+            @media (max-height: 400px) {
+                :root {
+                    --vdis: 40%;
+                }
             }
         </style>
     </head>
@@ -79,6 +208,20 @@
         </div>
         <div class="card v2">
             <div class="card-inside">
+            </div>
+        </div>
+        <div class="card v3">
+            <div class="card-inside-static">
+                <div class="title">
+                    <span class="logo"></span><span class="text">部川こ𛃿こ</span>
+                </div>
+                <div class="content">
+                    <p><strong>PID：</strong>部川これこ</p>
+                    <p><strong>所属：</strong>偶像大师杭州·厦门支部</p>
+                    <hr />
+                    <p><strong>SCSP：</strong>KQ9MVRW3M</p>
+                    <p style="white-space: nowrap;">CGSS和MLTD都没怎么养号，好像没必要加（</p>
+                </div>
             </div>
         </div>
     </body>
