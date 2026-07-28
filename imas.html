@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>部川これこ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Hentaigana:wght@200..900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap');
+
+            /* ========================================================================================================== *\
+               卡片实现灵感来自：https://uiverse.io/vamsidevendrakumar/soft-shrimp-94 by Vamsi Devendra Kumar, MIT License
+            \* ========================================================================================================== */
+
+            :root {
+                font-size: 16px;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            div.card {
+                width: 18rem;
+                height: 10.8rem;
+                perspective: 60rem;
+            }
+
+            div.card-inside {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 1s;
+            }
+
+            div.card:hover div.card-inside {
+                transform: rotateY(-180deg);
+            }
+
+            div.card-inside div.front,
+            div.card-inside div.back,
+            div.card-inside::before,
+            div.card-inside::after {
+                content: "";
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+            }
+
+            div.card-inside div.back,
+            div.card-inside::after {
+                transform: rotateY(180deg);
+            }
+
+            div.card.v1 div.card-inside::before {
+                background-image: url("imas/Card_v1a.svg");
+            }
+
+            div.card.v1 div.card-inside::after {
+                background-image: url("imas/Card_v1b.svg");
+            }
+
+            div.card.v2 div.card-inside::before {
+                background-image: url("imas/Card_v2a.svg");
+            }
+
+            div.card.v2 div.card-inside::after {
+                background-image: url("imas/Card_v2b.svg");
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card v1">
+            <div class="card-inside">
+            </div>
+        </div>
+        <div class="card v2">
+            <div class="card-inside">
+            </div>
+        </div>
+    </body>
+</html>
